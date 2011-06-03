@@ -2,6 +2,7 @@ from setuptools import setup, find_packages
 import sys, os
 
 version = '0.0.1'
+dependencies = ['couchdbkit','SQLAlchemy','pyramid', 'isisdm',]
 
 setup(name='bibishare',
       version=version,
@@ -17,9 +18,7 @@ setup(name='bibishare',
       packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
       include_package_data=True,
       zip_safe=True,
-      install_requires=[
-          # -*- Extra requirements: -*-
-      ],
+      install_requires=dependencies,
       entry_points="""
       # -*- Entry points: -*-
       """,
