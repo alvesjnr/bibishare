@@ -2,8 +2,10 @@ from pyramid.config import Configurator
 from bibishare.resources import Root
 from pyramid.events import subscriber
 from pyramid.events import NewRequest, NewResponse
+from pyramid.i18n import get_localizer
+from pyramid.session import UnencryptedCookieSessionFactoryConfig
 
-
+import pyramid_zcml
 import couchdbkit
 
 def main(global_config, **settings):
@@ -12,11 +14,17 @@ def main(global_config, **settings):
     
     config = Configurator(root_factory=Root, settings=settings)
  
+    config.include(pyramid_zcml)
+    config.load_zcml('configure.zcml')
+ 
     db_uri = settings['db_uri']
     conn = couchdbkit.Server(db_uri)
     config.registry.settings['db_conn'] = conn
     config.add_subscriber(add_couch_db, NewRequest) 
-    
+
+    my_session_factory = UnencryptedCookieSessionFactoryConfig('itsaseekreet')
+    config.set_session_factory(my_session_factory)
+
     return config.make_wsgi_app()
 
 def add_couch_db(event):

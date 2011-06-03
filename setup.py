@@ -6,7 +6,7 @@ here = os.path.abspath(os.path.dirname(__file__))
 README = open(os.path.join(here, 'README.txt')).read()
 CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
 
-requires = ['pyramid', 'WebError', 'SQLAlchemy', 'couchdbkit', 'isisdm',]
+requires = ['pyramid', 'WebError', 'SQLAlchemy', 'couchdbkit', 'isisdm', 'pyramid_zcml', ]
 
 setup(name='bibishare',
       version='0.0',
