@@ -1,25 +1,37 @@
-from setuptools import setup, find_packages
-import sys, os
+import os
 
-version = '0.0.1'
-dependencies = ['couchdbkit','SQLAlchemy','pyramid', 'isisdm',]
+from setuptools import setup, find_packages
+
+here = os.path.abspath(os.path.dirname(__file__))
+README = open(os.path.join(here, 'README.txt')).read()
+CHANGES = open(os.path.join(here, 'CHANGES.txt')).read()
+
+requires = ['pyramid', 'WebError']
 
 setup(name='bibishare',
-      version=version,
-      description="",
-      long_description="""\
-""",
-      classifiers=[], # Get strings from http://pypi.python.org/pypi?%3Aaction=list_classifiers
-      keywords='',
-      author='Antonio Ribeiro',
-      author_email='alvesjunior.antonio@gmail.com',
+      version='0.0',
+      description='bibishare',
+      long_description=README + '\n\n' +  CHANGES,
+      classifiers=[
+        "Programming Language :: Python",
+        "Framework :: Pylons",
+        "Topic :: Internet :: WWW/HTTP",
+        "Topic :: Internet :: WWW/HTTP :: WSGI :: Application",
+        ],
+      author='',
+      author_email='',
       url='',
-      license='GNU',
-      packages=find_packages(exclude=['ez_setup', 'examples', 'tests']),
+      keywords='web pyramid pylons',
+      packages=find_packages(),
       include_package_data=True,
-      zip_safe=True,
-      install_requires=dependencies,
-      entry_points="""
-      # -*- Entry points: -*-
+      zip_safe=False,
+      install_requires=requires,
+      tests_require=requires,
+      test_suite="bibishare",
+      entry_points = """\
+      [paste.app_factory]
+      main = bibishare:main
       """,
+      paster_plugins=['pyramid'],
       )
+

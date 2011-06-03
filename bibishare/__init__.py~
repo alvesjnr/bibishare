@@ -1,5 +1,5 @@
 from pyramid.config import Configurator
-from bibishare.resources import Root
+from pyramidattachs.resources import Root
 from pyramid.events import subscriber
 from pyramid.events import NewRequest, NewResponse
 
