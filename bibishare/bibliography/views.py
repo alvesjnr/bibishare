@@ -6,6 +6,7 @@ from pyramid.httpexceptions import HTTPFound
 from pyramid.renderers import get_renderer
 from pyramid.i18n import TranslationStringFactory
 _ = TranslationStringFactory('bibishare')
+from textile import textile
 
 from models import Bibitex
 from forms import BibitexForm
@@ -29,6 +30,7 @@ def new_entry(request):
             return render_to_response('bibitex:form.pt',
               {'form': e.render()})
 
+        appstruct['wiki_as_html'] = textile(appstruct['wiki'])
         bibitex = Bibitex.from_python(appstruct)
         bibitex.save(request.db)  
 

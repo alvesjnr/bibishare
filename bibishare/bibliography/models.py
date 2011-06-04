@@ -15,6 +15,8 @@ class Bibitex(model.CouchdbDocument):
     editor = model.MultiTextProperty()
     year = model.TextProperty()
     wiki = model.TextProperty()
+    wiki_as_html = model.TextProperty()
+
     
     organization = model.TextProperty()
     school = model.TextProperty()
@@ -32,6 +34,9 @@ class Bibitex(model.CouchdbDocument):
     crossref = model.TextProperty()
     booktitle = model.TextProperty()
     document = model.FileProperty()
+
+    class Meta:
+        hide = ['wiki_as_html']
     
 
 """
