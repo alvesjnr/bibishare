@@ -12,6 +12,8 @@ from couchdbkit import ResourceNotFound
 from models import Bibitex
 from forms import BibitexForm
 
+import deform
+
 BASE_TEMPLATE = 'bibishare:templates/base.pt'
 
 def main(request):
@@ -28,8 +30,8 @@ def new_entry(request):
         try:
             appstruct = bibitex_form.validate(controls)
         except deform.ValidationFailure, e:
-            return render_to_response('bibitex:form.pt',
-              {'form': e.render()})
+            return{'main':main,
+                   'form': e.render()}
 
         appstruct['wiki_as_html'] = textile(appstruct['wiki'])
         bibitex = Bibitex.from_python(appstruct)
