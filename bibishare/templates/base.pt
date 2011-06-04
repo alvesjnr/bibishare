@@ -20,7 +20,7 @@
     <body>
       <div class="container">
         <div class="top">
-          <h1><a href="#"><span>Bibishare</span></a></h1>
+          <h1><a href="http://github.com/alvesjnr/bibishare"><span>Bibishare</span></a></h1>
           <span metal:define-slot="custom_top"></span>
           <form id="form_language" action="/setlang/" method="post">
             <input type="hidden" id="language" name="language"/>
