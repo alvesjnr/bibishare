@@ -13,29 +13,29 @@ class Bibitex(model.CouchdbDocument):
     authors = model.MultiCompositeTextProperty(required=True, subkeys=['name', 'lastname'])
     publisher = model.TextProperty()
     editor = model.MultiTextProperty()
-    chapter = model.TextProperty()
     year = model.TextProperty()
-    note = model.TextProperty()
-    address = model.TextProperty()
-    url = model.TextProperty()
-    volume = model.TextProperty()
-    number = model.TextProperty()
-    series = model.MultiTextProperty()
-    school = model.TextProperty()
-    pages = model.TextProperty()
+    wiki = model.TextProperty()
+    
     organization = model.TextProperty()
+    school = model.TextProperty()
     institution = model.TextProperty()
-    month = model.TextProperty()
     journal = model.TextProperty()
+    url = model.TextProperty()
+    pages = model.TextProperty()
+    volume = model.TextProperty()
+    address = model.TextProperty()
+    chapter = model.TextProperty()
+    number = model.TextProperty()
+    month = model.TextProperty()
+    series = model.MultiTextProperty()
     edition = model.TextProperty()
     crossref = model.TextProperty()
     booktitle = model.TextProperty()
-    annote = model.TextProperty()
-
+    document = model.FileProperty()
+    
 
 """
     -address: Publisher's address (usually just the city, but can be the full address for lesser-known publishers)
-    -annote: An annotation for annotated bibliography styles (not typical)
     -author: The name(s) of the author(s) (in the case of more than one author, separated by and)
     -booktitle: The title of the book, if only part of it is being cited
     -chapter: The chapter number

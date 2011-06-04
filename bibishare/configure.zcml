@@ -29,4 +29,16 @@
     view="bibishare.bibliography.views.new_entry"
     renderer="bibishare:bibliography/templates/edit.pt"
   />
+  <route
+    name="bibliography.edit_entry"
+    pattern="/edit/{id}"
+    view="bibishare.bibliography.views.new_entry"
+    renderer="bibishare:bibliography/templates/edit.pt"
+  />
+  <route
+    name="bibliography.view_biblio"
+    pattern="/biblio/{id}"
+    view="bibishare.bibliography.views.view_biblio"
+    renderer="bibishare:bibliography/templates/biblio.pt"
+  />
 </configure>

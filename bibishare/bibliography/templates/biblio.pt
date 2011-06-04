@@ -8,7 +8,7 @@
             &#160;
         </div>
 
-        <h3>Edit A Reference</h3>
+        <h3>You are viewing</h3>
 
         <span tal:replace="structure form" />
 
