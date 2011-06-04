@@ -7,7 +7,7 @@ from pyramid.renderers import get_renderer
 from pyramid.i18n import TranslationStringFactory
 _ = TranslationStringFactory('bibishare')
 
-BASE_TEMPLATE = 'scielobooks:templates/base.pt'
+BASE_TEMPLATE = 'bibishare:templates/base.pt'
 
 def main(request):
     main = get_renderer(BASE_TEMPLATE).implementation()

@@ -1,7 +1,6 @@
 CHANGES.txt
 MANIFEST.in
 README
-README.txt
 development.ini
 production.ini
 setup.cfg
@@ -9,6 +8,7 @@ setup.py
 bibishare/__init__.py
 bibishare/base.pt
 bibishare/resources.py
+bibishare/views.py
 bibishare.egg-info/PKG-INFO
 bibishare.egg-info/SOURCES.txt
 bibishare.egg-info/dependency_links.txt
@@ -17,6 +17,12 @@ bibishare.egg-info/not-zip-safe
 bibishare.egg-info/paster_plugins.txt
 bibishare.egg-info/requires.txt
 bibishare.egg-info/top_level.txt
+bibishare/bibliography/__init__.py
+bibishare/bibliography/forms.py
+bibishare/bibliography/models.py
 bibishare/bibliography/template.pt
+bibishare/bibliography/views.py
+bibishare/bibliography/templates/main.pt
 bibishare/search/__init__.py
+bibishare/templates/base.pt
 bibishare/users/__init__.py

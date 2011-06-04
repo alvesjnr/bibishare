@@ -1,2 +1,6 @@
 pyramid
 WebError
+SQLAlchemy
+couchdbkit
+isisdm
+pyramid_zcml
