@@ -7,6 +7,7 @@ from pyramid.renderers import get_renderer
 from pyramid.i18n import TranslationStringFactory
 _ = TranslationStringFactory('bibishare')
 from textile import textile
+from couchdbkit import ResourceNotFound
 
 from models import Bibitex
 from forms import BibitexForm
@@ -49,9 +50,12 @@ def new_entry(request):
             }
 
 def view_biblio(request):
-     main = get_renderer(BASE_TEMPLATE).implementation()
-     bibitex = Bibitex.get(request.db, request.matchdict['id'])
-     return {'main':main,
-             'bibitex':bibitex,
+    main = get_renderer(BASE_TEMPLATE).implementation()
+    try:
+        bibitex = Bibitex.get(request.db, request.matchdict['id'])
+    except ResourceNotFound:
+    	return Response('404')
+    return {'main':main,
+            'bibitex':bibitex,
      		'wiki':bibitex.wiki_as_html}
 

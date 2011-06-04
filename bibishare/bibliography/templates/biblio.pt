@@ -7,6 +7,7 @@
         <div class="leftCol">
             &#160;
         </div>
+        <a href="${request.route_path('bibliography.edit_entry', id=request.matchdict['id'])}">Edit this article</a>
 
         <h3 tal:content="bibitex.title">You are viewing my article</h3>
 
