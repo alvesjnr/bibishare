@@ -48,8 +48,10 @@ def new_entry(request):
             'form':bibitex_form.render(),
             }
 
-def view_biblio(reques):
+def view_biblio(request):
      main = get_renderer(BASE_TEMPLATE).implementation()
+     bibitex = Bibitex.get(request.db, request.matchdict['id'])
      return {'main':main,
-     		'form':None}
+             'bibitex':bibitex,
+     		'wiki':bibitex.wiki_as_html}
 

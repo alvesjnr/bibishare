@@ -8,9 +8,9 @@
             &#160;
         </div>
 
-        <h3>You are viewing</h3>
+        <h3 tal:content="bibitex.title">You are viewing my article</h3>
 
-        <span tal:replace="structure form" />
+        <span tal:replace="structure wiki" />
 
         <div class="spacer"></div>
     </div>

@@ -36,7 +36,7 @@ class Bibitex(model.CouchdbDocument):
     document = model.FileProperty()
 
     class Meta:
-        hide = ['wiki_as_html']
+        hide = ('wiki_as_html', )
     
 
 """
