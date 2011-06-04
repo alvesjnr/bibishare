@@ -7,8 +7,19 @@ from pyramid.renderers import get_renderer
 from pyramid.i18n import TranslationStringFactory
 _ = TranslationStringFactory('bibishare')
 
+from forms import BibitexForm
+
 BASE_TEMPLATE = 'bibishare:templates/base.pt'
 
 def main(request):
     main = get_renderer(BASE_TEMPLATE).implementation()
     return {'main':main}
+
+
+def new_entry(request):
+    main = get_renderer(BASE_TEMPLATE).implementation()
+    form = BibitexForm.get_form().render()
+    return {'main':main,
+            'form':form,
+            }
+

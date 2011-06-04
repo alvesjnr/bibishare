@@ -20,7 +20,9 @@ def main(global_config, **settings):
     db_uri = settings['db_uri']
     conn = couchdbkit.Server(db_uri)
     config.registry.settings['db_conn'] = conn
-    config.add_subscriber(add_couch_db, NewRequest) 
+    config.add_subscriber(add_couch_db, NewRequest)
+    
+    config.add_static_view('deform_static', 'deform:static')
 
     my_session_factory = UnencryptedCookieSessionFactoryConfig('itsaseekreet')
     config.set_session_factory(my_session_factory)

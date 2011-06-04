@@ -23,4 +23,10 @@
     view="bibishare.bibliography.views.main"
     renderer="bibishare:bibliography/templates/main.pt"
   />
+  <route
+    name="bibliography.new_entry"
+    pattern="/new"
+    view="bibishare.bibliography.views.new_entry"
+    renderer="bibishare:bibliography/templates/edit.pt"
+  />
 </configure>
