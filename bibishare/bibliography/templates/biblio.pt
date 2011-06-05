@@ -10,8 +10,13 @@
         <a href="${request.route_path('bibliography.edit_entry', id=request.matchdict['id'])}">Edit this article</a>
 
         <h3 tal:content="bibitex.title">You are viewing my article</h3>
-
-        <span tal:replace="structure wiki" />
+        
+        <div class="wiki">
+          <span tal:replace="structure wiki" />
+        </div>
+        <div class="bibitex">
+          <!-- HERE COMES THE BIBITEX -->
+        </div>
 
         <div class="spacer"></div>
     </div>

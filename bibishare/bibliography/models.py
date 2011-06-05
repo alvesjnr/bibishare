@@ -16,7 +16,7 @@ class Bibitex(model.CouchdbDocument):
     year = model.TextProperty()
     wiki = model.TextProperty()
     wiki_as_html = model.TextProperty()
-
+    bibitex = model.TextProperty()
     
     organization = model.TextProperty()
     school = model.TextProperty()
@@ -36,7 +36,7 @@ class Bibitex(model.CouchdbDocument):
     document = model.FileProperty()
 
     class Meta:
-        hide = ('wiki_as_html', )
+        hide = ('wiki_as_html', 'bibitex')
     
 
 """
