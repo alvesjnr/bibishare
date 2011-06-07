@@ -33,8 +33,8 @@ def new_entry(request):
         except deform.ValidationFailure, e:
             return{'main':main,
                    'form': e.render()}
-
-        appstruct['bibitex'] = create_bibitex(appstruct)
+        #FIXME!!!
+        #appstruct['bibitex'] = create_bibitex(appstruct)
         if appstruct['wiki']:
             appstruct['wiki_as_html'] = textile(appstruct['wiki'])
         else:
