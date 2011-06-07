@@ -33,8 +33,9 @@ def new_entry(request):
         except deform.ValidationFailure, e:
             return{'main':main,
                    'form': e.render()}
-        #FIXME!!!
-        #appstruct['bibitex'] = create_bibitex(appstruct)
+
+        appstruct['bibitex'] = create_bibitex(appstruct.copy())
+
         if appstruct['wiki']:
             appstruct['wiki_as_html'] = textile(appstruct['wiki'])
         else:
@@ -63,8 +64,10 @@ def view_biblio(request):
         bibitex = Bibitex.get(request.db, request.matchdict['id'])
     except ResourceNotFound:
         return Response('404')
+
     return {'main':main,
             'bibitex':bibitex,
-             'wiki':bibitex.wiki_as_html,
+            'reference':bibitex.bibitex,
+            'wiki':bibitex.wiki_as_html,
             }
 

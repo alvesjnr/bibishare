@@ -1,8 +1,8 @@
 import pystache
 template = """@{{entry_type}}{ {{reference_name}},
 title = "{{title}}",
-author ={{#author}}{{author}}{{/author}},
-{{#editor}}editor = {{editor}},{{/editor}}
+author = {{#authors}}{{author}};{{/authors}},
+{{#editors}}editor = {{editor}};{{/editors}}{{#editors}},{{/editors}}
 {{#year}}year = {{year}},{{/year}}
 {{#publisher}}publisher = {{publisher}},{{/publisher}}
 {{#organization}}organization = {{organization}},{{/organization}}
@@ -23,9 +23,12 @@ author ={{#author}}{{author}}{{/author}},
 """
 
 def create_bibitex(reference):
-	for key in reference:
-		if isinstance(reference.get(key), list):
-			as_dictionarie = [{key:value} for value in reference.get(key)]
-			reference[key] = as_dictionarie
-	bibitex = pystache.render(template, reference)
-	return bibitex
+    authors = reference['authors']
+    editors = reference['editors']
+    
+    reference['authors'] = [{'author': "%s, %s" % (author['lastname'], author['name']),} for author in authors]
+    reference['editors'] = [{'editor':editor} for editor in editors]
+
+    bibitex = pystache.render(template, reference)
+    return bibitex #FIXME!!
+

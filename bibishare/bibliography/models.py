@@ -12,7 +12,7 @@ class Bibitex(model.CouchdbDocument):
     title = model.TextProperty(required=True)
     authors = model.MultiCompositeTextProperty(required=True, subkeys=['name', 'lastname'])
     publisher = model.TextProperty()
-    editor = model.MultiTextProperty()
+    editors = model.MultiTextProperty()
     year = model.TextProperty()
     wiki = model.TextProperty()
     wiki_as_html = model.TextProperty()

@@ -15,7 +15,7 @@
           <span tal:replace="structure wiki" />
         </div>
         <div class="bibitex">
-          <!-- HERE COMES THE BIBITEX -->
+          <span tal:replace="structure reference" />
         </div>
 
         <div class="spacer"></div>
