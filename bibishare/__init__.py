@@ -23,6 +23,7 @@ def main(global_config, **settings):
     config.add_subscriber(add_couch_db, NewRequest)
     
     config.add_static_view('deform_static', 'deform:static')
+    config.add_static_view('static', 'bibishare:static')
 
     my_session_factory = UnencryptedCookieSessionFactoryConfig('itsaseekreet')
     config.set_session_factory(my_session_factory)

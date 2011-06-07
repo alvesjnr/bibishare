@@ -31,7 +31,6 @@ class Bibitex(model.CouchdbDocument):
     month = model.TextProperty()
     series = model.MultiTextProperty()
     edition = model.TextProperty()
-    crossref = model.TextProperty()
     booktitle = model.TextProperty()
     document = model.FileProperty()
 

@@ -11,6 +11,7 @@ from couchdbkit import ResourceNotFound
 
 from models import Bibitex
 from forms import BibitexForm
+from bibitex import create_bibitex
 
 import deform
 
@@ -33,7 +34,12 @@ def new_entry(request):
             return{'main':main,
                    'form': e.render()}
 
-        appstruct['wiki_as_html'] = textile(appstruct['wiki'])
+        appstruct['bibitex'] = create_bibitex(appstruct)
+        if appstruct['wiki']:
+            appstruct['wiki_as_html'] = textile(appstruct['wiki'])
+        else:
+            appstruct['wiki_as_html'] = ''
+
         bibitex = Bibitex.from_python(appstruct)
         bibitex.save(request.db)  
 
@@ -56,8 +62,9 @@ def view_biblio(request):
     try:
         bibitex = Bibitex.get(request.db, request.matchdict['id'])
     except ResourceNotFound:
-    	return Response('404')
+        return Response('404')
     return {'main':main,
             'bibitex':bibitex,
-     		'wiki':bibitex.wiki_as_html}
+             'wiki':bibitex.wiki_as_html,
+            }
 
