@@ -66,7 +66,7 @@ def view_biblio(request):
         return Response('404')
 
     return {'main':main,
-            'bibitex':bibitex,
+            'bibitex':bibitex.to_python(),
             'reference':bibitex.bibitex,
             'wiki':bibitex.wiki_as_html,
             }

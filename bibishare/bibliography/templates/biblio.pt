@@ -11,6 +11,11 @@
 
         <h3 tal:content="bibitex.title">You are viewing my article</h3>
         
+        <dl class="metaddata">
+            <dt>Author:</dt>
+            <dd tal:repeat="author bibitex.authors"><span tal:replace="author">Soares, Sandra Regina</span></dd>
+
+        </dl>
         <div class="wiki">
           <span tal:replace="structure wiki" />
         </div>
