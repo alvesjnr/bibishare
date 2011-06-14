@@ -5,6 +5,11 @@ from pyramid.events import NewRequest, NewResponse
 from pyramid.i18n import get_localizer
 from pyramid.session import UnencryptedCookieSessionFactoryConfig
 
+from sqlalchemy import engine_from_config
+from sqlalchemy.orm import sessionmaker
+
+from .models import initialize_sql
+
 import pyramid_zcml
 import couchdbkit
 
@@ -13,7 +18,15 @@ def main(global_config, **settings):
     """
     
     config = Configurator(root_factory=Root, settings=settings)
- 
+    
+    engine = engine_from_config(settings, prefix='sqlalchemy.')
+    maker = sessionmaker(bind=engine)
+    settings['db.sessionmaker'] = maker
+
+    config.scan('bibishare.models') # the "important" line
+    engine = engine_from_config(settings, 'sqlalchemy.')
+    initialize_sql(engine)
+    
     config.include(pyramid_zcml)
     config.load_zcml('configure.zcml')
  
@@ -33,5 +46,5 @@ def main(global_config, **settings):
 def add_couch_db(event):
     settings = event.request.registry.settings
     db = settings['db_conn'][settings['db_name']]
-    event.request.db = db
+    event.request.couchdb = db
     

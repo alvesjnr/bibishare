@@ -41,4 +41,27 @@
     view="bibishare.bibliography.views.view_biblio"
     renderer="bibishare:bibliography/templates/biblio.pt"
   />
+
+<!--
+***********************************
+ USERS APP
+***********************************
+-->
+  <route
+    name="user.login"
+    pattern="/login"
+    view="bibishare.users.views.login"
+    renderer="bibishare:templates/form.pt"
+  />
+  <route
+    name="user.logout"
+    pattern="/logout"
+    view="bibishare.users.views.logout"
+  />
+  <route
+    name="user.signup"
+    pattern="/signup"
+    view="bibishare.users.views.signup"
+    renderer="bibishare:templates/form.pt"
+  />
 </configure>
