@@ -3,6 +3,6 @@ from pyramid.decorator import reify
 
 class MyRequest(Request):
     @reify
-    def rel_db(self):
-        maker = self.registry.settings['db.sessionmaker']
+    def dbsession(self):
+        maker = self.registry.settings['rel_db.sessionmaker']
         return maker()

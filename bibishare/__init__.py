@@ -9,6 +9,7 @@ from sqlalchemy import engine_from_config
 from sqlalchemy.orm import sessionmaker
 
 from .models import initialize_sql
+from bibishare.request import MyRequest
 
 import pyramid_zcml
 import couchdbkit
@@ -17,12 +18,13 @@ def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     
-    config = Configurator(root_factory=Root, settings=settings)
     
     engine = engine_from_config(settings, prefix='sqlalchemy.')
     maker = sessionmaker(bind=engine)
-    settings['db.sessionmaker'] = maker
+    settings['rel_db.sessionmaker'] = maker
 
+    config = Configurator(root_factory=Root, settings=settings, request_factory=MyRequest)
+    
     config.scan('bibishare.models') # the "important" line
     engine = engine_from_config(settings, 'sqlalchemy.')
     initialize_sql(engine)

@@ -19,10 +19,14 @@ class SignupForm():
         class Schema(colander.Schema):
             username = colander.SchemaNode(
                 colander.String(),
-                #TODO create a validator
                 validator=colander.All(validate_username),
                 title=localizer.translate(_('Username')),
                 description=localizer.translate(_('User name')),
+            )
+            fullname = colander.SchemaNode(
+                colander.String(),
+                title=localizer.translate(_('Fullname')),
+                description=localizer.translate(_('Full name')),
             )
             password = colander.SchemaNode(
                 colander.String(),
@@ -35,6 +39,29 @@ class SignupForm():
                 validator=colander.Email(),
                 title=localizer.translate(_('E-mail')),
                 description=localizer.translate(_('Contact e-mail')),
+            )
+            __LOCALE__ = colander.SchemaNode(
+                colander.String(),
+                widget = deform.widget.HiddenWidget(),
+                default= localizer.locale_name,
+            )
+        schema = Schema()
+
+class LoginForm():
+    @classmethod
+    def get_form(cls, localizer):
+            
+        class Schema(colander.Schema):
+            username = colander.SchemaNode(
+                colander.String(),
+                title=localizer.translate(_('Username')),
+                description=localizer.translate(_('User name')),
+            )
+            password = colander.SchemaNode(
+                colander.String(),
+                validator=colander.Length(min=5),
+                widget=deform.widget.PasswordWidget(size=20),
+                description=localizer.translate(_('Type your password and confirm it')),
             )
             __LOCALE__ = colander.SchemaNode(
                 colander.String(),
