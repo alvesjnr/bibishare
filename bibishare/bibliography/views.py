@@ -4,22 +4,35 @@ from pyramid import exceptions
 from pyramid.url import route_url, static_url
 from pyramid.httpexceptions import HTTPFound
 from pyramid.renderers import get_renderer
+from pyramid.security import authenticated_userid
 from pyramid.i18n import TranslationStringFactory
 _ = TranslationStringFactory('bibishare')
 from textile import textile
 from couchdbkit import ResourceNotFound
 
+from sqlalchemy.orm.exc import NoResultFound
+
 from models import Bibitex
 from forms import BibitexForm
 from bibitex import create_bibitex
+from ..models.users import User
 
 import deform
 
 BASE_TEMPLATE = 'bibishare:templates/base.pt'
 
+
 def main(request):
     main = get_renderer(BASE_TEMPLATE).implementation()
-    return {'main':main}
+    userid = authenticated_userid(request)
+    if userid:
+        user = request.dbsession.query(User).get(userid)
+    else:
+        user = None
+
+    return {'main':main,
+            'user':user,
+            }
 
 
 def new_entry(request):

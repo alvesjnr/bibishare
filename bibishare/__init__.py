@@ -14,16 +14,27 @@ from bibishare.request import MyRequest
 import pyramid_zcml
 import couchdbkit
 
+from pyramid.authentication import AuthTktAuthenticationPolicy
+from pyramid.authorization import ACLAuthorizationPolicy
+
+
 def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     
+    authentication_policy = AuthTktAuthenticationPolicy('seekrit')
+    authorization_policy = ACLAuthorizationPolicy()
     
     engine = engine_from_config(settings, prefix='sqlalchemy.')
     maker = sessionmaker(bind=engine)
     settings['rel_db.sessionmaker'] = maker
 
-    config = Configurator(root_factory=Root, settings=settings, request_factory=MyRequest)
+    config = Configurator(root_factory=Root,
+                          settings=settings,
+                          request_factory=MyRequest,
+                          authentication_policy=authentication_policy,
+                          authorization_policy=authorization_policy,
+                          )
     
     config.scan('bibishare.models') # the "important" line
     engine = engine_from_config(settings, 'sqlalchemy.')

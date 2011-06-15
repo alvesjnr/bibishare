@@ -3,7 +3,9 @@ from pyramid.response import Response
 from pyramid import exceptions
 from pyramid.url import route_url, static_url
 from pyramid.httpexceptions import HTTPFound
+from pyramid.security import remember, forget
 from pyramid.renderers import get_renderer
+from pyramid.security import authenticated_userid
 from pyramid.i18n import get_localizer
 from pyramid.i18n import TranslationStringFactory
 _ = TranslationStringFactory('bibishare')
@@ -26,6 +28,12 @@ def login(request):
     main = get_renderer(BASE_TEMPLATE).implementation()
     login_form = LoginForm.get_form(localizer)
 
+    userid = authenticated_userid(request)
+    if userid:
+        user = request.dbsession.query(User).get(userid)
+    else:
+        user = None
+
     if 'submit' in request.POST:
         
         controls = request.POST.items()
@@ -38,26 +46,33 @@ def login(request):
                     'form_title':FORM_TITLE,
                     }
         try:
-        	user = request.dbsession.query(User).filter_by(username=appstruct['username']).one()
+            user = request.dbsession.query(User).filter_by(username=appstruct['username']).one()
         except NoResultFound:
-        	request.session.flash(u'Username doesnot exist.')
-        	return {'content':login_form.render(appstruct), 
+            request.session.flash(u'Username doesnot exist.')
+            return {'content':login_form.render(appstruct), 
+                    'main':main, 
+                    'form_title':FORM_TITLE,
+                    }
+        
+        if SHA256.new(appstruct['password']).hexdigest() == user.password:
+            headers = remember(request, user.id)
+            return HTTPFound(location='/', headers=headers)
+        else:
+            request.session.flash(u'Username/password doesnot match.')
+            return {'content':login_form.render(appstruct), 
                     'main':main, 
                     'form_title':FORM_TITLE,
                     }
 
-        if SHA256.new(appstruct['password']).hexdigest() == user.password:
-            return Response('ok')
-        else:
-            return Response('not')
-
-    return {'main':main,
+    return {'user':user,
+            'main':main,
             'content':login_form.render(),
             'form_title':FORM_TITLE,
             }
 
 def logout(request):
-    return Response('loghoout')
+    headers = forget(request)
+    return HTTPFound(location='/', headers=headers)
 
 def signup(request):
 

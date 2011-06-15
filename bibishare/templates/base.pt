@@ -30,6 +30,9 @@
       <div class="container">
         <div class="top">
           <h1><a href="http://github.com/alvesjnr/bibishare"><span>Bibishare</span></a></h1>
+          <div tal:condition="user" class="user">
+            <span tal:content="user.fullname">John</span>
+          </div>
           <span metal:define-slot="custom_top"></span>
           <form id="form_language" action="/setlang/" method="post">
             <input type="hidden" id="language" name="language"/>
