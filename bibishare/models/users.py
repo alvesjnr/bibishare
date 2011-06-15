@@ -8,7 +8,6 @@ from Crypto.Hash import SHA256
 from bibishare.models import Base
 
 
-
 class User(Base):    
     __tablename__ = 'users'
     

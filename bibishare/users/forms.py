@@ -47,6 +47,8 @@ class SignupForm():
             )
         schema = Schema()
 
+        return deform.Form(schema, buttons=('submit',))
+
 class LoginForm():
     @classmethod
     def get_form(cls, localizer):

@@ -9,9 +9,12 @@ from pyramid.i18n import TranslationStringFactory
 _ = TranslationStringFactory('bibishare')
 
 from sqlalchemy.exc import IntegrityError
+from sqlalchemy.orm.exc import NoResultFound
 
 from forms import SignupForm, LoginForm
 from ..models.users import User
+
+from Crypto.Hash import SHA256
 
 import deform
 
@@ -34,7 +37,19 @@ def login(request):
                     'main':main, 
                     'form_title':FORM_TITLE,
                     }
-        
+        try:
+        	user = request.dbsession.query(User).filter_by(username=appstruct['username']).one()
+        except NoResultFound:
+        	request.session.flash(u'Username doesnot exist.')
+        	return {'content':login_form.render(appstruct), 
+                    'main':main, 
+                    'form_title':FORM_TITLE,
+                    }
+
+        if SHA256.new(appstruct['password']).hexdigest() == user.password:
+            return Response('ok')
+        else:
+            return Response('not')
 
     return {'main':main,
             'content':login_form.render(),
