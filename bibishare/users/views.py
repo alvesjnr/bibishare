@@ -22,17 +22,19 @@ import deform
 
 BASE_TEMPLATE = 'bibishare:templates/base.pt'
 
-def login(request):
-    FORM_TITLE = "Login"
-    localizer = get_localizer(request)
-    main = get_renderer(BASE_TEMPLATE).implementation()
-    login_form = LoginForm.get_form(localizer)
-
+def get_user(request):
     userid = authenticated_userid(request)
     if userid:
         user = request.dbsession.query(User).get(userid)
     else:
         user = None
+    return user
+
+def login(request):
+    FORM_TITLE = "Login"
+    localizer = get_localizer(request)
+    main = get_renderer(BASE_TEMPLATE).implementation()
+    login_form = LoginForm.get_form(localizer)
 
     if 'submit' in request.POST:
         
@@ -44,6 +46,7 @@ def login(request):
             return {'content':e.render(), 
                     'main':main, 
                     'form_title':FORM_TITLE,
+                    'user':get_user(request),
                     }
         try:
             user = request.dbsession.query(User).filter_by(username=appstruct['username']).one()
@@ -52,6 +55,7 @@ def login(request):
             return {'content':login_form.render(appstruct), 
                     'main':main, 
                     'form_title':FORM_TITLE,
+                    'user':get_user(request),
                     }
         
         if SHA256.new(appstruct['password']).hexdigest() == user.password:
@@ -62,9 +66,10 @@ def login(request):
             return {'content':login_form.render(appstruct), 
                     'main':main, 
                     'form_title':FORM_TITLE,
+                    'user':get_user(request),
                     }
 
-    return {'user':user,
+    return {'user':get_user(request),
             'main':main,
             'content':login_form.render(),
             'form_title':FORM_TITLE,
@@ -91,6 +96,7 @@ def signup(request):
             return {'content':e.render(), 
                     'main':main, 
                     'form_title':FORM_TITLE,
+                    'user':get_user(request),
                     }
         del(appstruct['__LOCALE__'])
         user = User(**appstruct)
@@ -104,6 +110,7 @@ def signup(request):
            return {'content':publisher_form.render(appstruct),
                    'main':main,
                    'form_title':FORM_TITLE,
+                   'user':get_user(request),
                    }
         request.session.flash(u'User registered.')
         #TODO Login or not login?
@@ -112,4 +119,5 @@ def signup(request):
     return {'main':main,
             'content':signup_form.render(),
             'form_title':FORM_TITLE,
+            'user':get_user(request),
             }

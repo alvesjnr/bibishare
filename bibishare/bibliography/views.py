@@ -21,6 +21,13 @@ import deform
 
 BASE_TEMPLATE = 'bibishare:templates/base.pt'
 
+def get_user(request):
+    userid = authenticated_userid(request)
+    if userid:
+        user = request.dbsession.query(User).get(userid)
+    else:
+        user = None
+    return user
 
 def main(request):
     main = get_renderer(BASE_TEMPLATE).implementation()
@@ -31,7 +38,7 @@ def main(request):
         user = None
 
     return {'main':main,
-            'user':user,
+            'user':get_user(request),
             }
 
 
@@ -69,6 +76,7 @@ def new_entry(request):
     
     return {'main':main,
             'form':bibitex_form.render(),
+            'user':get_user(request),
             }
 
 def view_biblio(request):
@@ -82,5 +90,6 @@ def view_biblio(request):
             'bibitex':bibitex.to_python(),
             'reference':bibitex.bibitex,
             'wiki':bibitex.wiki_as_html,
+            'user':get_user(request),
             }
 
