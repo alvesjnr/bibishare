@@ -30,5 +30,9 @@ def create_bibitex(reference):
     reference['editors'] = [{'editor':editor} for editor in editors]
 
     bibitex = pystache.render(template, reference)
-    return bibitex #FIXME!!
+    
+    while '\n\n' in bibitex:
+        bibitex = bibitex.replace('\n\n','\n')
+
+    return bibitex
 
