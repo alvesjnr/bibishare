@@ -29,6 +29,8 @@ def get_user(request):
         user = None
     return user
 
+
+
 def main(request):
     main = get_renderer(BASE_TEMPLATE).implementation()
     userid = authenticated_userid(request)
@@ -52,7 +54,9 @@ def new_entry(request):
             appstruct = bibitex_form.validate(controls)
         except deform.ValidationFailure, e:
             return{'main':main,
-                   'form': e.render()}
+                   'form': e.render(),
+                   'user':get_user(request),
+                   }
 
         appstruct['bibitex'] = create_bibitex(appstruct.copy())
 
@@ -62,16 +66,17 @@ def new_entry(request):
             appstruct['wiki_as_html'] = ''
 
         bibitex = Bibitex.from_python(appstruct)
-        bibitex.save(request.db)  
+        bibitex.save(request.couchdb)  
 
         return HTTPFound(location='/biblio/%s' % bibitex._id)
 
     else:
         if 'id' in request.matchdict: #edit
-            bibitex = Bibitex.get(request.db, request.matchdict['id'])
+            bibitex = Bibitex.get(request.couchdb, request.matchdict['id'])
             
             return {'main':main,
                     'form': bibitex_form.render(bibitex.to_python()),
+                    'user':get_user(request),
                     }
     
     return {'main':main,
@@ -82,7 +87,7 @@ def new_entry(request):
 def view_biblio(request):
     main = get_renderer(BASE_TEMPLATE).implementation()
     try:
-        bibitex = Bibitex.get(request.db, request.matchdict['id'])
+        bibitex = Bibitex.get(request.couchdb, request.matchdict['id'])
     except ResourceNotFound:
         return Response('404')
 

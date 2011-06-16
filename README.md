@@ -22,7 +22,7 @@ run:
 
 
 Running
-_______
+-------
 
 For running with paster, just run:
 

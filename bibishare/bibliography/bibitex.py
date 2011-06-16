@@ -31,7 +31,7 @@ def create_bibitex(reference):
 
     bibitex = pystache.render(template, reference)
     
-    while '\n\n' in bibitex:
+    while '\n\n' in bibitex: #simpler than regex
         bibitex = bibitex.replace('\n\n','\n')
 
     return bibitex

@@ -22,7 +22,6 @@
     pattern="/"
     view="bibishare.bibliography.views.main"
     renderer="bibishare:bibliography/templates/main.pt"
-    permission="everybody"
   />
   <route
     name="bibliography.new_entry"
@@ -35,6 +34,7 @@
     pattern="/edit/{id}"
     view="bibishare.bibliography.views.new_entry"
     renderer="bibishare:bibliography/templates/edit.pt"
+    permission="logged"
   />
   <route
     name="bibliography.view_biblio"

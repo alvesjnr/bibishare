@@ -10,6 +10,7 @@ from sqlalchemy.orm import sessionmaker
 
 from .models import initialize_sql
 from bibishare.request import MyRequest
+from bibishare.security import groupfinder
 
 import pyramid_zcml
 import couchdbkit
@@ -22,7 +23,7 @@ def main(global_config, **settings):
     """ This function returns a Pyramid WSGI application.
     """
     
-    authentication_policy = AuthTktAuthenticationPolicy('seekrit')
+    authentication_policy = AuthTktAuthenticationPolicy('seekrit', callback=groupfinder)
     authorization_policy = ACLAuthorizationPolicy()
     
     engine = engine_from_config(settings, prefix='sqlalchemy.')
