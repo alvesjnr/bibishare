@@ -71,4 +71,17 @@
     view="bibishare.users.views.signup"
     renderer="bibishare:templates/form.pt"
   />
+
+<!--
+***********************************
+ SEARCH APP
+***********************************
+-->
+  <route
+    name="search.basic"
+    pattern="/search"
+    view="bibishare.search.views.basic_search"
+    renderer="bibishare:search/templates/search_results.pt"
+  />
 </configure>
+
