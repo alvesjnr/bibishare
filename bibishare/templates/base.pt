@@ -50,11 +50,11 @@
             </ul>
           </form-->
           <div class="main-menu">
-            <a href="/new">Create new article</a>
             <form id="serach-form" action="/search" method="get">
               <input type="text" name="q"/>
               <input type="submit" value="Search" />
             </form>
+            <a href="/new">Create a new article</a>
           </div>
           <div class="spacer"></div>
         </div>
