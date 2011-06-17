@@ -17,6 +17,8 @@ from forms import BibitexForm
 from bibitex import create_bibitex
 from ..models.users import User
 
+from datetime import datetime
+
 import deform
 
 BASE_TEMPLATE = 'bibishare:templates/base.pt'
@@ -24,23 +26,31 @@ BASE_TEMPLATE = 'bibishare:templates/base.pt'
 def get_user(request):
     userid = authenticated_userid(request)
     if userid:
-        user = request.dbsession.query(User).get(userid)
-    else:
-        user = None
-    return user
+        return request.dbsession.query(User).get(userid)
 
+def normalize_name(names):
+    def norm_one_name(name):
+        name = dict(name)
+        return "%s, %s;" % (name['lastname'],name['name'])
 
+    return [norm_one_name(name) for name in names]
 
+{u'value': [u'Uma Casa Rosa', [[[u'name', u'Merce'], [u'lastname', u'Deuteres']]], None], u'id': u'7dj8k', u'key': u'2011-06-16 23:01:07.451287'}
 def main(request):
     main = get_renderer(BASE_TEMPLATE).implementation()
     userid = authenticated_userid(request)
-    if userid:
-        user = request.dbsession.query(User).get(userid)
-    else:
-        user = None
+    
+    last_entries = request.couchdb.view("couchapp/last", limit=200).all()
 
+    last_entries = [ {'id':entry['id'], 
+                      'title':entry['value'][0],
+                      'authors':normalize_name(entry['value'][1]),
+                      'publisher':entry['value'][2],
+                     } for entry in last_entries]
+    
     return {'main':main,
             'user':get_user(request),
+            'articles':last_entries,
             }
 
 
@@ -67,6 +77,7 @@ def new_entry(request):
         else:
             appstruct['wiki_as_html'] = ''
 
+        appstruct['modified_at'] = str(datetime.now())
         bibitex = Bibitex.from_python(appstruct)
         bibitex.save(request.couchdb)  
 
@@ -98,9 +109,11 @@ def view_biblio(request):
     except AttributeError:
         document_url = None
     
-    
+    metadata = bibitex.to_python()
+    metadata['authors'] = normalize_name(metadata['authors'])
+
     return {'main':main,
-            'bibitex':bibitex.to_python(),
+            'metadata':metadata,
             'reference':bibitex.bibitex,
             'wiki':bibitex.wiki_as_html,
             'user':get_user(request),

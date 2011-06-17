@@ -33,9 +33,10 @@ class Bibitex(model.CouchdbDocument):
     edition = model.TextProperty()
     booktitle = model.TextProperty()
     document = model.FileProperty()
+    modified_at = model.TextProperty()
 
     class Meta:
-        hide = ('wiki_as_html', 'bibitex')
+        hide = ('wiki_as_html', 'bibitex', 'modified_at')
     
 
 """

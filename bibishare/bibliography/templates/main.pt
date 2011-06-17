@@ -9,15 +9,26 @@
             &#160;
         </div>
 
-        <h3>The name of this article/book</h3>
+        <h3>Last Entries:</h3>
 
-        <table>
+        <table class="articles-table">
             <tr>
-                <td>Publisher</td>
-                <td>Title</td>
-                <td>Authors</td>
-                <td>Meeting</td>
-            </tr>                                    
+                <td>Publisher:</td>
+                <td>Title:</td>
+                <td>Authors:</td>
+            </tr>
+
+            <tr tal:repeat="article articles">
+                <td tal:condition="article.publisher" tal:content="article.publisher">Bireme Press</td>
+                <td tal:condition="not article.publisher"></td>
+                <td>
+                    <a href="${request.route_path('bibliography.view_biblio',id=article.id)}">
+                        <span tal:replace="article.title">Aquela casa amarela</span>
+                    </a>
+                </td>
+                <td> <span tal:repeat="author article.authors" tal:replace="author">da Silva, José;</span></td>
+            </tr>
+                                 
         </table>
 
         <div class="spacer"></div>

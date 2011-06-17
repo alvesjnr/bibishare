@@ -9,24 +9,24 @@
         </div>
         <a tal:condition="user" href="${request.route_path('bibliography.edit_entry', id=request.matchdict['id'])}">Edit this article</a>
 
-        <h3 class="biblio_title" tal:content="bibitex.title">You are viewing my article</h3>
+        <h3 class="biblio_title" tal:content="metadata.title">You are viewing my article</h3>
       
         <dl class="metaddata">
 
             <dt>Author:</dt>
-            <dd tal:repeat="author bibitex.authors"><span tal:replace="author">Soares, Sandra Regina</span></dd>
+            <dd tal:repeat="author metadata.authors"><span tal:replace="author">Soares, Sandra Regina</span></dd>
             
-            <dt tal:condition="'pages' in bibitex">pages:</dt>
-            <dd tal:condition="'pages' in bibitex" tal:content="bibitex.pages">12</dd>
+            <dt tal:condition="'pages' in metadata">pages:</dt>
+            <dd tal:condition="'pages' in metadata" tal:content="metadata.pages">12</dd>
 
-            <dt tal:condition="'year' in bibitex">Year of Publication:</dt>
-            <dd tal:condition="'year' in bibitex" tal:content="bibitex.year">2011</dd>
+            <dt tal:condition="'year' in metadata">Year of Publication:</dt>
+            <dd tal:condition="'year' in metadata" tal:content="metadata.year">2011</dd>
             
-            <dt tal:condition="'publisher' in bibitex">Publisher:</dt>
-            <dd tal:condition="'publisher' in bibitex" tal:content="bibitex.publisher">Bireme Press</dd>
+            <dt tal:condition="'publisher' in metadata">Publisher:</dt>
+            <dd tal:condition="'publisher' in metadata" tal:content="metadata.publisher">Bireme Press</dd>
     
-            <dt tal:condition="'keywords' in bibitex">Keywords:</dt>
-            <dd tal:condition="'keywords' in bibitex" tal:content="bibitex.keywords">C++, languages, programming</dd>
+            <dt tal:condition="'keywords' in metadata">Keywords:</dt>
+            <dd tal:condition="'keywords' in metadata" tal:content="metadata.keywords">C++, languages, programming</dd>
 
         </dl>
 
