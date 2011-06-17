@@ -7,7 +7,7 @@ README = open(os.path.join(here, 'README')).read()
 CHANGES = open(os.path.join(here, 'CHANGES')).read()
 
 requires = ['pyramid', 'WebError', 'SQLAlchemy', 'couchdbkit', 'isisdm', 'pyramid_zcml', 
-            'pystache', 'textile', 'pycrypto', 'pyramid_handlers']
+            'pystache', 'textile', 'pycrypto', 'pyramid_handlers', 'Woosh']
 
 setup(name='bibishare',
       version='0.0',
