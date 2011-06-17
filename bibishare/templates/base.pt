@@ -15,7 +15,6 @@
       <metal:block define-slot="custom_script"/>
 
       <metal:block define-slot="css">
-        <link rel="stylesheet" href="/static/css/styles.css" type="text/css" media="screen"></link>
         <link rel="stylesheet" href="/deform_static/css/theme.css" type="text/css"></link>
         <link rel="stylesheet" href="/deform_static/css/form.css" type="text/css"></link>
       </metal:block>
@@ -29,7 +28,7 @@
     <body>
       <div class="container">
 
-        <div class="userbox">
+        <div class="top-search">
           <span tal:condition="user">
             <span tal:content="user.fullname">John</span>
             <a href="/logout">logout</a>
@@ -39,7 +38,7 @@
             <a href="/signup">signup</a>
           </span>
         </div>
-        
+
         <div class="top">
           <h1><a href="http://github.com/alvesjnr/bibishare"><span>Bibishare</span></a></h1>
           <span metal:define-slot="custom_top"></span>
