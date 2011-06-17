@@ -58,7 +58,9 @@ def new_entry(request):
                    'user':get_user(request),
                    }
 
-        appstruct['bibitex'] = create_bibitex(appstruct.copy())
+        bibitex = appstruct.copy()
+        del(bibitex['document'])
+        appstruct['bibitex'] = create_bibitex(bibitex)
 
         if appstruct['wiki']:
             appstruct['wiki_as_html'] = textile(appstruct['wiki'])
@@ -88,13 +90,29 @@ def view_biblio(request):
     main = get_renderer(BASE_TEMPLATE).implementation()
     try:
         bibitex = Bibitex.get(request.couchdb, request.matchdict['id'])
+    
     except ResourceNotFound:
         return Response('404')
-
+    try:
+        document_url = bibitex.document['filename']
+    except AttributeError:
+        document_url = None
+    
+    
     return {'main':main,
             'bibitex':bibitex.to_python(),
             'reference':bibitex.bibitex,
             'wiki':bibitex.wiki_as_html,
             'user':get_user(request),
+            'download':document_url,
             }
 
+def download(request):
+    
+    id = request.matchdict['id']
+    filename = request.matchdict['filename']
+
+    content_type = request.couchdb.get(id)['_attachments'][filename]['content_type']  
+    document = request.couchdb.fetch_attachment(id,filename)
+
+    return Response(body=document, content_type=content_type)

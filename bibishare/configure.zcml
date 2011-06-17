@@ -42,6 +42,12 @@
     view="bibishare.bibliography.views.view_biblio"
     renderer="bibishare:bibliography/templates/biblio.pt"
   />
+  <route
+    name="bibliography.download"
+    pattern="/biblio/{id}/download/{filename}"
+    view="bibishare.bibliography.views.download"
+  />
+
 
 <!--
 ***********************************

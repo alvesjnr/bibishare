@@ -30,8 +30,8 @@
 
         </dl>
 
-        <div tal:condition="'document' in bibitex" class="document">
-            <a class="download" href="${bibitex.download}">Download</a>
+        <div tal:condition="download" class="document_download">
+            <a class="download" href="${'%s/download/%s' % (request.url,download)}">Download</a>
         </div>
 
         <div class="wiki">
