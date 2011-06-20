@@ -4,3 +4,7 @@ SQLAlchemy
 couchdbkit
 isisdm
 pyramid_zcml
+pystache
+textile
+pycrypto
+pyramid_handlers
