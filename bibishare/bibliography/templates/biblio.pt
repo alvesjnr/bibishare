@@ -37,9 +37,9 @@
         <div class="wiki">
           <span tal:replace="structure wiki" />
         </div>
-        <div class="bibitex">
+        <pre class="bibitex">
           <span tal:replace="structure reference" />
-        </div>
+        </pre>
 
         <div class="spacer"></div>
     </div>
