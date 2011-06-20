@@ -9,7 +9,7 @@
       <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
       <title>Bibishare Bibliography Sharing System</title>
 
-      <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
+      <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js"></script>
       <script type="text/javascript" src="/deform_static/scripts/deform.js"></script>
       <script src="/static/js/language.js"></script>
       <metal:block define-slot="custom_script"/>

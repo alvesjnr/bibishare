@@ -1,5 +1,15 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
 <p metal:use-macro="main.macros['master']" i18n:domain="bibishare">
+    
+     <div metal:fill-slot="custom_script" tal:omit-tag="">
+        <script src="/static/js/main-page.js"></script>
+        <script src="/static/js/jquery.tablesorter.js"></script>
+    </div>
+
+    <div metal:fill-slot="css" tal:omit-tag="">
+        <link rel="stylesheet" href="/static/css/panel-blue/style.css" type="text/css" media="screen"></link>
+    </div>
+    
     <div class="middle" metal:fill-slot="middle">
         
         <div class="breadcrumb">
@@ -11,23 +21,27 @@
 
         <h3>Last Entries:</h3>
 
-        <table class="articles-table">
-            <tr>
-                <td>Publisher:</td>
-                <td>Title:</td>
-                <td>Authors:</td>
-            </tr>
+        <table class="tablesorter" id="articles-table">
+            <thead>
+                <tr>
+                    <th>Publisher:</th>
+                    <th>Title:</th>
+                    <th>Authors:</th>
+                </tr>
+            </thead>
 
-            <tr tal:repeat="article articles">
-                <td tal:condition="article.publisher" tal:content="article.publisher">Bireme Press</td>
-                <td tal:condition="not article.publisher"></td>
-                <td>
-                    <a href="${request.route_path('bibliography.view_biblio',id=article.id)}">
-                        <span tal:replace="article.title">Aquela casa amarela</span>
-                    </a>
-                </td>
-                <td> <span tal:repeat="author article.authors" tal:replace="author">da Silva, José;</span></td>
-            </tr>
+            <tbody>
+                <tr tal:repeat="article articles">
+                    <td tal:condition="article.publisher" tal:content="article.publisher">Bireme Press</td>
+                    <td tal:condition="not article.publisher"></td>
+                    <td>
+                        <a href="${request.route_path('bibliography.view_biblio',id=article.id)}">
+                            <span tal:replace="article.title">Aquela casa amarela</span>
+                        </a>
+                    </td>
+                    <td> <span tal:repeat="author article.authors" tal:replace="author">da Silva, José;</span></td>
+                </tr>
+            </tbody>
                                  
         </table>
 
