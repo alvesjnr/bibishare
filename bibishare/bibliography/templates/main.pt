@@ -21,12 +21,12 @@
 
         <h3>Last Entries:</h3>
 
-        <table class="tablesorter tablePanel" cellspacing="0" >
+        <table class="tablesorter" id="articles-table">
             <thead>
                 <tr>
-                    <td>Publisher:</td>
-                    <td>Title:</td>
-                    <td>Authors:</td>
+                    <th>Publisher:</th>
+                    <th>Title:</th>
+                    <th>Authors:</th>
                 </tr>
             </thead>
 
