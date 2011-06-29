@@ -16,6 +16,7 @@ from models import Bibitex
 from forms import BibitexForm
 from bibitex import create_bibitex
 from ..models.users import User
+from ..search import indexer
 
 from datetime import datetime
 
@@ -35,7 +36,6 @@ def normalize_name(names):
 
     return [norm_one_name(name) for name in names]
 
-{u'value': [u'Uma Casa Rosa', [[[u'name', u'Merce'], [u'lastname', u'Deuteres']]], None], u'id': u'7dj8k', u'key': u'2011-06-16 23:01:07.451287'}
 def main(request):
     main = get_renderer(BASE_TEMPLATE).implementation()
     userid = authenticated_userid(request)
@@ -79,6 +79,7 @@ def new_entry(request):
 
         appstruct['modified_at'] = str(datetime.now())
         bibitex = Bibitex.from_python(appstruct)
+        indexer.index(bibitex)
         bibitex.save(request.couchdb)  
 
         return HTTPFound(location='/biblio/%s' % bibitex._id)
