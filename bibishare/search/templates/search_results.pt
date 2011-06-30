@@ -15,7 +15,7 @@
           </span>
           <span tal:condition="results">
             <h3>
-              <span tal:replace="len(results)" /> Result<span tal:condition="len(results) > 1" tal:replace="s" /> Found
+              <span tal:replace="len(results)" /> Result<span tal:condition="len(results) > 1" tal:replace="'s'" /> Found
             </h3>
           </span>
           <span class="result" tal:condition="results" tal:repeat="result results">
