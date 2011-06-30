@@ -23,12 +23,19 @@ def create_index():
 
 
 def index(biblio):
+    if not os.path.exists("bibishare/search/index"):
+        create_index()
     ix = open_dir("bibishare/search/index")
     writer = ix.writer()
-    import pdb; pdb.set_trace()
+    
+    try:
+        wiki = biblio.wiki
+    except AttributeError:
+        wiki = u''
+
     writer.add_document(title=biblio.title, 
-                        wiki=biblio.wiki,
-                        id=biblio._id, 
+                        wiki=wiki,
+                        id=unicode(biblio._id), 
                         #authors=reduce(lambda a,b: "%s%s%s" % (a,' ',b), normalize_name(biblio["authors"])),
                         )
 
