@@ -36,7 +36,7 @@ def index(biblio):
     writer.add_document(title=biblio.title, 
                         wiki=wiki,
                         id=unicode(biblio._id), 
-                        #authors=reduce(lambda a,b: "%s%s%s" % (a,' ',b), normalize_name(biblio["authors"])),
+                        #authors=' '.join(normalize_name(biblio["authors"])),
                         )
 
     writer.commit()
