@@ -9,6 +9,8 @@ from pyramid.i18n import TranslationStringFactory
 _ = TranslationStringFactory('bibishare')
 from couchdbkit import ResourceNotFound
 
+from ..models.users import User
+
 from whoosh.qparser import QueryParser, MultifieldParser
 from whoosh.index import open_dir
 

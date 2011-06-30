@@ -1,5 +1,6 @@
 from whoosh.index import open_dir, create_in
 from whoosh import fields
+
 import os
 
 def normalize_name(names):
