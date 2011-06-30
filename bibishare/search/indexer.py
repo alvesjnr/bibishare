@@ -22,7 +22,7 @@ def create_index():
     create_in("bibishare/search/index", schema)
 
 
-def index(biblio):
+def index(id,biblio):
     if not os.path.exists("bibishare/search/index"):
         create_index()
     ix = open_dir("bibishare/search/index")
@@ -33,10 +33,10 @@ def index(biblio):
     except AttributeError:
         wiki = u''
 
-    writer.add_document(title=biblio.title, 
+    writer.add_document(title=biblio['title'], 
                         wiki=wiki,
-                        id=unicode(biblio._id), 
-                        #authors=' '.join(normalize_name(biblio["authors"])),
+                        id=unicode(id), 
+                        authors=' '.join(normalize_name(biblio['authors'])),
                         )
 
     writer.commit()

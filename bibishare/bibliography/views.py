@@ -79,8 +79,8 @@ def new_entry(request):
 
         appstruct['modified_at'] = str(datetime.now())
         bibitex = Bibitex.from_python(appstruct)
-        indexer.index(bibitex)
         bibitex.save(request.couchdb)  
+        indexer.index(bibitex._id,appstruct)
 
         return HTTPFound(location='/biblio/%s' % bibitex._id)
 

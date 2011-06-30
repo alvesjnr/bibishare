@@ -1,0 +1,36 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<p metal:use-macro="main.macros['master']" i18n:domain="bibishare">
+    <div class="middle" metal:fill-slot="middle">
+        <div class="breadcrumb">
+            
+        </div>
+        <div class="leftCol">
+            &#160;
+        </div>
+        <div class="results">
+          <span tal:condition="not results">
+            <h3>
+              No Results Found
+            </h3>
+          </span>
+          <span tal:condition="results">
+            <h3>
+              <span tal:replace="len(results)" /> Result<span tal:condition="len(results) > 1" tal:replace="s" /> Found
+            </h3>
+          </span>
+          <span class="result" tal:condition="results" tal:repeat="result results">
+            <h4>
+              <a href="${request.route_path('bibliography.view_biblio', id=result.id)}">
+                <span tal:replace="result.title" />
+              </a>
+            </h4>
+            <dl>
+                <dt>Authors: </dt>
+                <dd tal:content="result.authors">Babaoglu</dd>
+            </dl>
+          </span>
+        </div>
+        
+        <div class="spacer"></div>
+    </div>
+</p>
