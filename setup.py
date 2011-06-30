@@ -10,7 +10,7 @@ requires = ['pyramid', 'WebError', 'SQLAlchemy', 'couchdbkit', 'isisdm', 'pyrami
             'pystache', 'textile', 'pycrypto', 'pyramid_handlers', 'Woosh']
 
 setup(name='bibishare',
-      version='0.0',
+      version='0.2',
       description='bibishare',
       long_description=README + '\n\n' +  CHANGES,
       classifiers=[
